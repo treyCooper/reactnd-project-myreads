@@ -1,9 +1,12 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+import ChangeShelf from './ChangeShelf'
+
 
 class BooksApp extends React.Component {
   state = {
+    books: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -13,7 +16,18 @@ class BooksApp extends React.Component {
     showSearchPage: true
   }
 
+
+  componentDidMount() {
+    BooksAPI.getAll().then((response) => {
+      this.setState((state) => ({
+        books: state.books.concat(response)
+      }));
+    })
+  }
+
   render() {
+            console.log(this.state.books)
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -21,16 +35,16 @@ class BooksApp extends React.Component {
             <div className="search-books-bar">
               <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
               <div className="search-books-input-wrapper">
-                {/* 
+                {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
                   You can find these search terms here:
                   https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-                  
+
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
                 <input type="text" placeholder="Search by title or author"/>
-                
+
               </div>
             </div>
             <div className="search-books-results">
@@ -38,17 +52,33 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
+
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
+
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                      <li>
+                  {this.state.books.filter((c) => c.shelf === "currentlyReading").map((book) => (
+                    <li key={book.id} className='contact-list-item'>
+                    <div className="book">
+                      <div className="book-top">
+                      <div className="book-cover" style={{ width: 128, height: 193,
+                        backgroundImage:`url(${book.imageLinks.thumbnail})`
+                      }}/>
+                      <ChangeShelf shelf={this.shelf}/>
+                      </div>
+                      <div className="book-title">{book.title}</div>
+                      <div className="book-authors">{book.authors[0]} {book.authors[1]}</div>
+                      </div>
+                    </li>
+                  ))}
+                      /*<li>
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }}></div>
@@ -83,7 +113,7 @@ class BooksApp extends React.Component {
                           <div className="book-title">Ender's Game</div>
                           <div className="book-authors">Orson Scott Card</div>
                         </div>
-                      </li>
+                      </li>*/
                     </ol>
                   </div>
                 </div>
@@ -91,6 +121,20 @@ class BooksApp extends React.Component {
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
+                    {this.state.books.filter((c) => c.shelf === "wantToRead").map((book) => (
+                      <li key={book.id} className='contact-list-item'>
+                      <div className="book">
+                        <div className="book-top">
+                        <div className="book-cover" style={{ width: 128, height: 193,
+                          backgroundImage:`url(${book.imageLinks.thumbnail})`
+                        }}/>
+                        <ChangeShelf />
+                        </div>
+                        <div className="book-title">{book.title}</div>
+                        <div className="book-authors">{book.authors[0]} {book.authors[1]}</div>
+                        </div>
+                      </li>
+                    ))}
                       <li>
                         <div className="book">
                           <div className="book-top">
@@ -134,6 +178,20 @@ class BooksApp extends React.Component {
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
+                    {this.state.books.filter((c) => c.shelf === "read").map((book) => (
+                      <li key={book.id} className='contact-list-item'>
+                      <div className="book">
+                        <div className="book-top">
+                        <div className="book-cover" style={{ width: 128, height: 193,
+                          backgroundImage:`url(${book.imageLinks.thumbnail})`
+                        }}/>
+                        <ChangeShelf />
+                        </div>
+                        <div className="book-title">{book.title}</div>
+                        <div className="book-authors">{book.authors[0]} {book.authors[1]} {book.authors[2]}</div>
+                        </div>
+                      </li>
+                    ))}
                       <li>
                         <div className="book">
                           <div className="book-top">
