@@ -8,7 +8,7 @@ class Book extends Component {
     console.log('this from book', this);
     return(
       <ol className="books-grid">
-    {this.props.books.filter((c) => c.shelf === "currentlyReading").map((book) => (
+    {this.props.books.filter((c) => c.shelf === this.props.shelf).map((book) => (
       <li key={book.id} >
       <div className="book">
         <div className="book-top">
