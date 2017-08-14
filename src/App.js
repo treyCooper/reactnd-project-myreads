@@ -25,6 +25,11 @@ class BooksApp extends React.Component {
     })
   }
 
+  changeShelf = (value, book) => {
+
+    console.log('find book from changeshelf', this.state.books.filter((b) => b.id === book.id)[0].title);
+  }
+
   render() {
     return (
       <div className="app">
@@ -62,7 +67,7 @@ class BooksApp extends React.Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
-                                <Book books={this.state.books}/>
+                                <Book books={this.state.books} moveBook={this.changeShelf}/>
                   </div>
                 </div>
                 <div className="bookshelf">
