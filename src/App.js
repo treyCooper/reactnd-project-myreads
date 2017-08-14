@@ -26,8 +26,12 @@ class BooksApp extends React.Component {
   }
 
   changeShelf = (value, book) => {
-
-    console.log('find book from changeshelf', this.state.books.filter((b) => b.id === book.id)[0].title);
+    let newBooks = Object.assign([], this.state.books)
+    newBooks.filter((b) => b.id === book.id)[0].shelf = value
+    console.log('newBooks', newBooks);
+    this.setState((state) => ({
+      books: newBooks
+    }))
   }
 
   render() {
