@@ -41,7 +41,7 @@ showMainPage = () => this.setState({ showSearchPage: false })
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <Search toMainPage={this.showMainPage}/>
+          <Search books={this.state.books} toMainPage={this.showMainPage} moveBook={this.changeShelf}/>
 
         ) : (
 
