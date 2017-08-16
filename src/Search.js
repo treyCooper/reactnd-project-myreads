@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import ShelfChanger from './ShelfChanger.js'
+import * as BooksAPI from './BooksAPI'
 
 class Search extends Component {
 
@@ -17,24 +18,30 @@ state = {
 
 updateQuery = (query) => {
 this.setState({ query: query.trim() })
+BooksAPI.search(query, 20).then(result => this.setState((state) => ({
+  books: this.props.books.concat(result)
+
+}))
+
+)
 }
 
 clearQuery = () => {
 this.setState({ query: '' })
 }
   render(){
-
+  console.log('APISearch-response', this.state.books);
 const { books, moveBook }= this.props
 const { query } = this.state
 let showingBooks
 if (query) {
   const match = new RegExp(escapeRegExp(this.state.query), 'i')
-  showingBooks = books.filter((book) => match.test(book.title))
+  showingBooks = this.state.books.filter((book) => match.test(book.title))
 } else {
   showingBooks = books;
 }
 
-showingBooks.sort(sortBy('name'))
+showingBooks.sort(sortBy('title'))
 
     return(
       <div className="search-books">
