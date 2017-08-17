@@ -7,6 +7,7 @@ import Search from './Search.js'
 class BooksApp extends React.Component {
   state = {
     books: [],
+    searchResults: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -29,7 +30,7 @@ class BooksApp extends React.Component {
   updateQuery = (query) => {
   this.setState({ query: query.trim() })
   BooksAPI.search(query, 10).then(result => this.setState((state) => ({
-    books: state.books.concat(result)
+    searchResults: state.searchResults.concat(result)
     }))
   )
 }
@@ -51,11 +52,11 @@ class BooksApp extends React.Component {
 showMainPage = () => this.setState({ showSearchPage: false })
 
   render() {
-    console.log(this.state)
+    console.log(this.state.searchResults)
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <Search books={this.state.books} toMainPage={this.showMainPage} moveBook={this.changeShelf} updateSearch={this.updateQuery} clearSearch={this.clearQuery}/>
+          <Search books={this.state.books} searchResults={this.state.searchResults} toMainPage={this.showMainPage} moveBook={this.changeShelf} updateSearch={this.updateQuery} clearSearch={this.clearQuery}/>
 
         ) : (
 

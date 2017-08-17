@@ -8,22 +8,22 @@ import InputBoxDoneTyping from 'react-input-box-done-typing'
 class Search extends Component {
 
   static propTypes = {
-  books: PropTypes.array.isRequired,
+  searchResults: PropTypes.array.isRequired,
   moveBook: PropTypes.func.isRequired
 }
 
 
   render(){
 
-  console.log('books', this.props.books);
-const { books, moveBook, query }= this.props
+  console.log('searchResults', this.props.searchResults);
+const { searchResults, books, moveBook, query }= this.props
 let showingBooks
 
 if (query) {
   const match = new RegExp(escapeRegExp(query), 'i')
-  showingBooks = books.filter((book) => match.test(book.title || book.authors[0]))
+  showingBooks = searchResults.filter((book) => match.test(book.title || book.authors[0]))
 } else {
-  showingBooks = books;
+  showingBooks = searchResults;
 }
 
 showingBooks.sort(sortBy('title'))
@@ -65,7 +65,7 @@ showingBooks.sort(sortBy('title'))
             <div className='book-cover' style={{ width: 128, height: 193,
               backgroundImage:`url(${book.imageLinks.thumbnail})`
             }}/>
-            <ShelfChanger book={book} name={book.title} moveBook={this.props.moveBook} />
+            <ShelfChanger book={book} searchResult={book} name={book.title} moveBook={this.props.moveBook} />
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{book.authors[0]} {book.authors[1]}</div>
