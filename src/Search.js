@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import ShelfChanger from './ShelfChanger.js'
-import * as BooksAPI from './BooksAPI'
+import InputBoxDoneTyping from 'react-input-box-done-typing'
 
 class Search extends Component {
 
@@ -12,31 +12,16 @@ class Search extends Component {
   moveBook: PropTypes.func.isRequired
 }
 
-state = {
-  query: ''
-}
 
-updateQuery = (query) => {
-this.setState({ query: query.trim() })
-BooksAPI.search(query, 20).then(result => this.setState((state) => ({
-  books: this.props.books.concat(result)
-
-}))
-
-)
-}
-
-clearQuery = () => {
-this.setState({ query: '' })
-}
   render(){
-  console.log('APISearch-response', this.state.books);
-const { books, moveBook }= this.props
-const { query } = this.state
+
+  console.log('books', this.props.books);
+const { books, moveBook, query }= this.props
 let showingBooks
+
 if (query) {
-  const match = new RegExp(escapeRegExp(this.state.query), 'i')
-  showingBooks = this.state.books.filter((book) => match.test(book.title))
+  const match = new RegExp(escapeRegExp(query), 'i')
+  showingBooks = books.filter((book) => match.test(book.title || book.authors[0]))
 } else {
   showingBooks = books;
 }
@@ -56,24 +41,25 @@ showingBooks.sort(sortBy('title'))
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input type="text"
+            <InputBoxDoneTyping
+                   type="text"
                    placeholder="Search by title or author"
-                   value={this.state.query}
-                   onChange={(event) => this.updateQuery(event.target.value)}
+                   doneTyping={(val) => this.props.updateSearch(val)}
+                   doneTypingInterval={500}
             />
-
           </div>
         </div>
         <div className="search-books-results">
-        {showingBooks.length !== books.length && (
+      {/*  {showingBooks.length !== books.length && (
           <div className='showing-books'>
             <span>Now showing {showingBooks.length} of {books.length}</span>
             <button onClick={this.clearQuery}>Show all</button>
           </div>
-          )}
+        )}*/}
           <ol className="books-grid">
           {showingBooks.map((book) => (
           <li key={book.id}>
+          {console.log('showingbooks', showingBooks)}
           <div className="book">
             <div className="book-top">
             <div className='book-cover' style={{ width: 128, height: 193,
