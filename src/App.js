@@ -63,7 +63,10 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, value)
   }
 
-showMainPage = () => this.setState({ showSearchPage: false })
+showMainPage = () => {
+  this.setState({ showSearchPage: false })
+  this.setState({ searchResults: [] })
+}
 
   render() {
     console.log(this.state.searchResults)

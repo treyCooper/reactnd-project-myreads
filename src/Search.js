@@ -12,9 +12,7 @@ class Search extends Component {
   moveBook: PropTypes.func.isRequired
 }
 
-static defaultProps = {
-  book: {authors: 'tillman'}
-}
+
 
 
   render(){
