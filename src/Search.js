@@ -65,7 +65,7 @@ showingBooks.sort(sortBy('title'))
             <div className='book-cover' style={{ width: 128, height: 193,
               backgroundImage:`url(${book.imageLinks.thumbnail})`
             }}/>
-            <ShelfChanger book={book} searchResult={book} name={book.title} moveBook={this.props.moveBook} />
+            <ShelfChanger book={book} searchResult={book} name={book.title} addBook={this.props.addBook} shelf={this.props.shelf} />
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{book.authors[0]} {book.authors[1]}</div>

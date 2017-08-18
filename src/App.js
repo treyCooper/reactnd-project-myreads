@@ -44,7 +44,16 @@ class BooksApp extends React.Component {
     let newBooks = Object.assign([], this.state.books)
     newBooks.filter((b) => b.id === book.id)[0].shelf = value
     this.setState((state) => ({
-      books: newBooks
+      books: state.books.concat(newBooks)
+    }))
+    BooksAPI.update(book, value)
+  }
+
+  addToMyReads = (value, book) => {
+    let newBooks = Object.assign([], this.state.searchResults)
+    newBooks.filter((b) => b.id === book.id)[0].shelf = value
+    this.setState((state) => ({
+      books: state.books.concat(newBooks)
     }))
     BooksAPI.update(book, value)
   }
@@ -56,7 +65,7 @@ showMainPage = () => this.setState({ showSearchPage: false })
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <Search books={this.state.books} searchResults={this.state.searchResults} toMainPage={this.showMainPage} moveBook={this.changeShelf} updateSearch={this.updateQuery} clearSearch={this.clearQuery}/>
+          <Search books={this.state.books} searchResults={this.state.searchResults} toMainPage={this.showMainPage} moveBook={this.changeShelf} updateSearch={this.updateQuery} addBook={this.addToMyReads} clearSearch={this.clearQuery} shelf="none"/>
 
         ) : (
 
