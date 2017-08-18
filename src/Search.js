@@ -27,7 +27,7 @@ if (query) {
   const match = new RegExp(escapeRegExp(query), 'i')
   showingBooks = searchResults.filter((book) => match.test(book.title || book.authors[0]))
 } else {
-  showingBooks = searchResults;
+  showingBooks = searchResults
 }
 
 showingBooks.sort(sortBy('title'))
