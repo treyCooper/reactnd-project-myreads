@@ -69,7 +69,6 @@ showMainPage = () => {
 }
 
   render() {
-    console.log(this.state.searchResults)
     return (
       <div className="app">
         {this.state.showSearchPage ? (
