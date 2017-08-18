@@ -44,7 +44,7 @@ class BooksApp extends React.Component {
     let newBooks = Object.assign([], this.state.books)
     newBooks.filter((b) => b.id === book.id)[0].shelf = value
     this.setState((state) => ({
-      books: state.books.concat(newBooks)
+      books: newBooks
     }))
     BooksAPI.update(book, value)
   }
