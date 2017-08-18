@@ -12,6 +12,10 @@ class Search extends Component {
   moveBook: PropTypes.func.isRequired
 }
 
+static defaultProps = {
+  book: {authors: 'tillman'}
+}
+
 
   render(){
 
@@ -59,7 +63,6 @@ showingBooks.sort(sortBy('title'))
           <ol className="books-grid">
           {showingBooks.map((book) => (
           <li key={book.id}>
-          {console.log('showingbooks', showingBooks)}
           <div className="book">
             <div className="book-top">
             <div className='book-cover' style={{ width: 128, height: 193,
@@ -68,7 +71,7 @@ showingBooks.sort(sortBy('title'))
             <ShelfChanger book={book} searchResult={book} name={book.title} addBook={this.props.addBook} shelf={this.props.shelf} />
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors[0]} {book.authors[1]}</div>
+          <div className="book-authors">{book.authors ? book.authors[0] : ''} </div>
           </div>
           </li>
           ))}

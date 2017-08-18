@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 
 class ShelfChanger extends Component {
 static defaultProps = {
-  book: {shelf: "none"}
+  book: {shelf: "none"},
+  thumbnail: ''
 }
 handleChange = (value, book) => {
   if (this.props.shelf === "none"){
