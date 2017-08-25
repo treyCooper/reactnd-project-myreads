@@ -17,17 +17,18 @@ class Search extends Component {
 
   render(){
 
-  console.log('searchResults', this.props.searchResults);
+
 const { searchResults, books, moveBook, query }= this.props
 let showingBooks
 
 if (query) {
+  showingBooks = searchResults
   const match = new RegExp(escapeRegExp(query), 'i')
-  showingBooks = searchResults.concat(books).filter((book) => match.test(book.title || book.authors[0]))
+  showingBooks = showingBooks.filter((book) => match.test(book.title || book.authors[0]))
 } else {
   showingBooks =  searchResults.concat(books)
 }
-
+console.log('showingBooks', showingBooks);
 showingBooks.sort(sortBy('title'))
 
     return(

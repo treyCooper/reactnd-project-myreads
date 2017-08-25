@@ -27,14 +27,15 @@ class BooksApp extends React.Component {
     })
   }
 
+
   updateQuery = (query) => {
     if (query === "" || query === " "){
 
     }
-    else{
+    else {
   this.setState({ query: query.trim() })
   BooksAPI.search(query, 20).then(result => this.setState((state) => ({
-    searchResults: state.searchResults.concat(result)
+    searchResults: result
     }))
   )
 }
