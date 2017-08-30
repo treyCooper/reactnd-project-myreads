@@ -3,7 +3,6 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from './Book.js'
 import Search from './Search.js'
-import escapeRegExp from 'escape-string-regexp'
 
 class BooksApp extends React.Component {
   state = {
@@ -30,19 +29,26 @@ class BooksApp extends React.Component {
 
 
   updateQuery = (query) => {
-    if (query === "" || query === " "){
+    if (query.trim() === '') return;
 
-    }
-    else {
-  this.setState({ query: query.trim() })
-  const match = new RegExp(escapeRegExp(query), 'i')
-  let myReadsMatches = this.state.books.filter((book) => match.test(book.title || book.authors[0]))
-  BooksAPI.search(query, 20).then(results => this.setState((state) => ({
-    searchResults: myReadsMatches.concat(results.filter((result) => result.id !== myReadsMatches.map((myRead) => myRead.id === result.id)))
-    }))
-  )
- }
-}
+    BooksAPI.search(query, 20).then(searchResults => {
+      // catch `undefined` and `{error: ''}`
+      if (!searchResults || searchResults.error) {
+        this.setState({ searchResults: [] });
+        return;
+      }
+
+      const reconciledSearchResults = searchResults.map(searchResult => {
+        searchResult.shelf = 'none';
+        this.state.books.forEach(book => {
+          if(book.id === searchResult.id) searchResult.shelf = book.shelf;
+        })
+        return searchResult;
+      })
+
+      this.setState(state => ({ searchResults: reconciledSearchResults }));
+    });
+  };
 
 
   clearQuery = () => {

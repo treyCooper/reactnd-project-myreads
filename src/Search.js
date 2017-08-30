@@ -1,24 +1,15 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import ShelfChanger from './ShelfChanger.js'
 import InputBoxDoneTyping from 'react-input-box-done-typing'
 
 class Search extends Component {
 
-  static propTypes = {
-  searchResults: PropTypes.array.isRequired,
-  moveBook: PropTypes.func.isRequired
-}
-
-
-
 
   render(){
 
 
-const { searchResults, books, moveBook, query }= this.props
+const { searchResults }= this.props
 let showingBooks = searchResults
 
 console.log('showingBooks', showingBooks);
