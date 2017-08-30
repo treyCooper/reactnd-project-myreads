@@ -19,14 +19,8 @@ class Search extends Component {
 
 
 const { searchResults, books, moveBook, query }= this.props
-let showingBooks
+let showingBooks = searchResults
 
-if (query) {
-  showingBooks = searchResults
-  
-} else {
-  showingBooks =  searchResults
-}
 console.log('showingBooks', showingBooks);
 showingBooks.sort(sortBy('title'))
 

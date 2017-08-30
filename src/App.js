@@ -36,12 +36,12 @@ class BooksApp extends React.Component {
     else {
   this.setState({ query: query.trim() })
   const match = new RegExp(escapeRegExp(query), 'i')
-  let totalSearch = this.state.searchResults.concat(this.state.books)
-  BooksAPI.search(query, 20).then(result => this.setState((state) => ({
-    searchResults: totalSearch.concat(result).filter((book) => match.test(book.title || book.authors[0]))
+  let myReadsMatches = this.state.books.filter((book) => match.test(book.title || book.authors[0]))
+  BooksAPI.search(query, 20).then(results => this.setState((state) => ({
+    searchResults: myReadsMatches.concat(results.filter((result) => result.id !== myReadsMatches.map((myRead) => myRead.id === result.id)))
     }))
   )
-}
+ }
 }
 
 
