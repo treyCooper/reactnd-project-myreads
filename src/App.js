@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from './Book.js'
 import Search from './Search.js'
+import escapeRegExp from 'escape-string-regexp'
 
 class BooksApp extends React.Component {
   state = {
@@ -34,8 +35,10 @@ class BooksApp extends React.Component {
     }
     else {
   this.setState({ query: query.trim() })
+  const match = new RegExp(escapeRegExp(query), 'i')
+  let totalSearch = this.state.searchResults.concat(this.state.books)
   BooksAPI.search(query, 20).then(result => this.setState((state) => ({
-    searchResults: result
+    searchResults: totalSearch.concat(result).filter((book) => match.test(book.title || book.authors[0]))
     }))
   )
 }

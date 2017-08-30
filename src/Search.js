@@ -23,10 +23,9 @@ let showingBooks
 
 if (query) {
   showingBooks = searchResults
-  const match = new RegExp(escapeRegExp(query), 'i')
-  showingBooks = showingBooks.filter((book) => match.test(book.title || book.authors[0]))
+  
 } else {
-  showingBooks =  searchResults.concat(books)
+  showingBooks =  searchResults
 }
 console.log('showingBooks', showingBooks);
 showingBooks.sort(sortBy('title'))
