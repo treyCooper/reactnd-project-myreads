@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import sortBy from 'sort-by'
 import ShelfChanger from './ShelfChanger.js'
 import InputBoxDoneTyping from 'react-input-box-done-typing'
 
-class Search extends Component {
+class Search extends Component{
 
 
   render(){
@@ -18,7 +19,7 @@ showingBooks.sort(sortBy('title'))
     return(
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" onClick={this.props.toMainPage}>Close</a>
+          <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.

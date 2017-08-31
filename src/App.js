@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from './Book.js'
@@ -14,7 +15,7 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: true,
+
     query:''
   }
 
@@ -74,17 +75,15 @@ class BooksApp extends React.Component {
   }
 
 showMainPage = () => {
-  this.setState({ showSearchPage: false })
   this.setState({ searchResults: [] })
 }
 
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <Search books={this.state.books} searchResults={this.state.searchResults} toMainPage={this.showMainPage} moveBook={this.changeShelf} updateSearch={this.updateQuery} addBook={this.addToMyReads} clearSearch={this.clearQuery} shelf="none"/>
 
-        ) : (
+
+        <Route exact path="/" render={ () => (
 
           <div className="list-books">
             <div className="list-books-title">
@@ -114,10 +113,25 @@ showMainPage = () => {
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link
+              to="/search"
+              >Add a book</Link>
             </div>
           </div>
-        )}
+        )}/>
+
+        <Route path="/search" render={({ history }) => (
+          <Search
+          books={this.state.books}
+          searchResults={this.state.searchResults}
+          toMainPage={this.showMainPage}
+          moveBook={this.changeShelf}
+          updateSearch={this.updateQuery}
+          addBook={this.addToMyReads}
+          clearSearch={this.clearQuery}
+          shelf="none"
+          />
+)}/>
       </div>
     )
   }
