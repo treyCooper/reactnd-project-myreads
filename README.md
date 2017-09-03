@@ -10,7 +10,7 @@ They can be downloaded [here](https:/nodejs.org/en/download/)
 
 ###### Clone this repository:
 * $ git clone https://github.com/treyCooper/reactnd-project-myreads-starter.git
-* $ cd reactnd-project-myreads-starter
+* $ cd reactnd-project-myreads
 * $ npm install
 
 ## Launch
