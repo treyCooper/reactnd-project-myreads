@@ -15,10 +15,8 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-
     query:''
-  }
-
+  };
 
   componentDidMount() {
     BooksAPI.getAll().then((response) => {
@@ -28,7 +26,6 @@ class BooksApp extends React.Component {
     })
   }
 
-
   updateQuery = (query) => {
     if (query.trim() === '') return;
 
@@ -37,7 +34,7 @@ class BooksApp extends React.Component {
       if (!searchResults || searchResults.error) {
         this.setState({ searchResults: [] });
         return;
-      }
+      };
 
       const reconciledSearchResults = searchResults.map(searchResult => {
         searchResult.shelf = 'none';
@@ -51,51 +48,42 @@ class BooksApp extends React.Component {
     });
   };
 
-
   clearQuery = () => {
   this.setState({ query: '' })
-  }
+  };
 
   changeShelf = (value, book) => {
-    let newBooks = Object.assign([], this.state.books)
-    newBooks.filter((b) => b.id === book.id)[0].shelf = value
+    let newBooks = Object.assign([], this.state.books);
+    newBooks.filter((b) => b.id === book.id)[0].shelf = value;
     this.setState((state) => ({
       books: newBooks
-    }))
+    }));
     BooksAPI.update(book, value)
-  }
+  };
 
   addToMyReads = (value, book) => {
-    let newBooks = Object.assign([], this.state.searchResults)
-    newBooks.filter((b) => b.id === book.id)[0].shelf = value
+    let newBooks = Object.assign([], this.state.searchResults);
+    newBooks.filter((b) => b.id === book.id)[0].shelf = value;
     this.setState((state) => ({
       books: state.books.concat(newBooks)
-    }))
+    }));
     BooksAPI.update(book, value)
-  }
-
-showMainPage = () => {
-  this.setState({ searchResults: [] })
-}
+  };
 
   render() {
     return (
       <div className="app">
-
-
         <Route exact path="/" render={ () => (
-
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
-                                <Book books={this.state.books} moveBook={this.changeShelf} shelf='currentlyReading'/>
+                    <Book books={this.state.books} moveBook={this.changeShelf} shelf='currentlyReading'/>
                   </div>
                 </div>
                 <div className="bookshelf">
@@ -119,22 +107,20 @@ showMainPage = () => {
             </div>
           </div>
         )}/>
-
-        <Route path="/search" render={({ history }) => (
-          <Search
-          books={this.state.books}
-          searchResults={this.state.searchResults}
-          toMainPage={this.showMainPage}
-          moveBook={this.changeShelf}
-          updateSearch={this.updateQuery}
-          addBook={this.addToMyReads}
-          clearSearch={this.clearQuery}
-          shelf="none"
-          />
-)}/>
+          <Route path="/search" render={({ history }) => (
+            <Search
+            books={this.state.books}
+            searchResults={this.state.searchResults}
+            moveBook={this.changeShelf}
+            updateSearch={this.updateQuery}
+            addBook={this.addToMyReads}
+            clearSearch={this.clearQuery}
+            shelf="none"
+            />
+        )}/>
       </div>
     )
-  }
-}
+  };
+};
 
 export default BooksApp

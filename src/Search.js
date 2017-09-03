@@ -9,12 +9,8 @@ class Search extends Component{
 
   render(){
 
-
-const { searchResults }= this.props
-let showingBooks = searchResults
-
-console.log('showingBooks', showingBooks);
-showingBooks.sort(sortBy('title'))
+    const { searchResults } = this.props;
+    searchResults.sort(sortBy('title'))
 
     return(
       <div className="search-books">
@@ -30,39 +26,33 @@ showingBooks.sort(sortBy('title'))
               you don't find a specific author or title. Every search is limited by search terms.
             */}
             <InputBoxDoneTyping
-                   type="text"
-                   placeholder="Search by title or author"
-                   doneTyping={(val) => this.props.updateSearch(val)}
-                   doneTypingInterval={500}
+               type="text"
+               placeholder="Search by title or author"
+               doneTyping={(val) => this.props.updateSearch(val)}
+               doneTypingInterval={500}
             />
           </div>
         </div>
         <div className="search-books-results">
-      {/*  {showingBooks.length !== books.length && (
-          <div className='showing-books'>
-            <span>Now showing {showingBooks.length} of {books.length}</span>
-            <button onClick={this.clearQuery}>Show all</button>
-          </div>
-        )}*/}
           <ol className="books-grid">
-          {showingBooks.map((book) => (
-          <li key={book.id}>
-          <div className="book">
-            <div className="book-top">
-            <div className='book-cover' style={{ width: 128, height: 193,
-              backgroundImage:`url(${book.imageLinks.thumbnail})`
-            }}/>
-            <ShelfChanger book={book} searchResult={book} name={book.title} addBook={this.props.addBook} shelf={this.props.shelf} />
-          </div>
-          <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors ? book.authors[0] : ''} </div>
-          </div>
-          </li>
-          ))}
+            {searchResults.map((book) => (
+              <li key={book.id}>
+              <div className="book">
+                <div className="book-top">
+                <div className='book-cover' style={{ width: 128, height: 193,
+                  backgroundImage:`url(${book.imageLinks.thumbnail})`
+                  }}/>
+                <ShelfChanger book={book} searchResult={book} name={book.title} addBook={this.props.addBook} shelf={this.props.shelf} />
+              </div>
+              <div className="book-title">{book.title}</div>
+              <div className="book-authors">{book.authors ? book.authors[0] : ''} </div>
+              </div>
+              </li>
+            ))}
           </ol>
         </div>
       </div>
     )
-  }
-}
+  };
+};
 export default Search
