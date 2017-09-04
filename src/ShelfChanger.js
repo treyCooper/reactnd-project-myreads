@@ -8,7 +8,7 @@ class ShelfChanger extends Component {
 
   con
   handleChange = (value, book) => {
-    if (this.props.shelf === "none"){
+    if (this.props.book.shelf === "none"){
       return this.props.addBook(value, book);
     }
     else{
@@ -19,7 +19,7 @@ class ShelfChanger extends Component {
     return(
       <div className="book-shelf-changer">
         <select value={this.props.book.shelf} onChange={(event) => this.handleChange(event.target.value, this.props.book)}>
-          <option value="none" disabled>Move to...</option>
+          <option value="" disabled>Move to...</option>
           <option value="none">None</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>

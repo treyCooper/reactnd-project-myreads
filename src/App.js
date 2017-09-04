@@ -68,6 +68,7 @@ class BooksApp extends React.Component {
       books: state.books.concat(newBooks)
     }));
     BooksAPI.update(book, value)
+    console.log("PPPPPPPPP")
   };
 
   render() {
