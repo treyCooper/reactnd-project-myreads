@@ -1,4 +1,4 @@
-MyReads is a web app that allows you to view bookshelves containing books that you want to read, are currently reading, or have read. On the main page you can change the shelf of any of the books in your collection using the drop down menu on the bottom-right corner of each book or remove a book from your collection by selecting "none". MyReads also contains a search page where you can find new books as well as books in your collection and put them on whatever shelf you like. MyReads was built using react.js.
+MyReads is a web app that allows you to view bookshelves containing books that you want to read, are currently reading, or have read. You can also search for new books and add them to your collection.
 
 
 ## Requirements
