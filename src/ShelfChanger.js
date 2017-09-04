@@ -7,10 +7,9 @@ class ShelfChanger extends Component {
   };
 
   handleChange = (value, book) => {
-
       return this.props.moveBook(value, book);
-
   };
+  
   render(){
     return(
       <div className="book-shelf-changer">

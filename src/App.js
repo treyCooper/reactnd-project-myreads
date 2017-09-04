@@ -55,6 +55,7 @@ class BooksApp extends React.Component {
   updateShelf = (value, currentBook) => {
   BooksAPI.update(currentBook, value).then(() => this.setState(state => {
     return {
+
       books: state.books.map(book => {
         if (book.id === currentBook.id) {
           book.shelf = value
@@ -69,6 +70,7 @@ class BooksApp extends React.Component {
       })
     }
   }));
+    BooksAPI.getAll().then(books => this.setState({books}));
 };
 
 
@@ -84,7 +86,6 @@ class BooksApp extends React.Component {
             searchResults={this.state.searchResults}
             moveBook={this.updateShelf}
             updateSearch={this.updateQuery}
-            addBook={this.updateShelf}
             clearSearch={this.clearQuery}
             shelf="none"
             />
