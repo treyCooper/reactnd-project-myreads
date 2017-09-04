@@ -5,6 +5,8 @@ class ShelfChanger extends Component {
     book: {shelf: "none"},
     thumbnail: ''
   };
+
+  con
   handleChange = (value, book) => {
     if (this.props.shelf === "none"){
       return this.props.addBook(value, book);
