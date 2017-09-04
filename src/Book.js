@@ -18,7 +18,7 @@ class Book extends Component {
             <ShelfChanger book={book} name={book.title} moveBook={this.props.moveBook}/>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors[0]} {book.authors[1]}</div>
+          <div className=" book-authors">{book.authors ? book.authors.join(', '): ''}</div>
           </div>
           </li>
         ))}
