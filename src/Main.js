@@ -18,19 +18,18 @@ class Main extends Component {
             <div className="bookshelf">
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
-                <Book books={this.props.books} moveBook={this.props.moveBook} shelf='currentlyReading'/>
+                <Book books={this.props.books} moveBook={this.props.moveBook} shelf="currentlyReading"/>
               </div>
             </div>
             <div className="bookshelf">
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
-                <Book books={this.props.books} moveBook={this.props.moveBook} shelf='wantToRead'/>
+              <Book books={this.props.books} moveBook={this.props.moveBook} shelf="wantToRead"/>
               </div>
             </div>
             <div className="bookshelf">
               <h2 className="bookshelf-title">Read</h2>
               <div className="bookshelf-books">
-                <Book books={this.props.books} moveBook={this.props.moveBook} shelf='read'/>
               </div>
             </div>
           </div>

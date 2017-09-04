@@ -6,7 +6,6 @@ class ShelfChanger extends Component {
     thumbnail: ''
   };
 
-  con
   handleChange = (value, book) => {
     if (this.props.book.shelf === "none"){
       return this.props.addBook(value, book);
@@ -16,6 +15,7 @@ class ShelfChanger extends Component {
     }
   };
   render(){
+    console.log("shelf from changer", this.props.book.shelf)
     return(
       <div className="book-shelf-changer">
         <select value={this.props.book.shelf} onChange={(event) => this.handleChange(event.target.value, this.props.book)}>

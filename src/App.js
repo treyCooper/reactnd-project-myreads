@@ -59,8 +59,26 @@ class BooksApp extends React.Component {
       books: newBooks
     }));
     BooksAPI.update(book, value)
+    console.log("changeShelf", book);
   };
-
+  updateShelf = (value, curBook) => {
+  BooksAPI.update(curBook, value).then(() => this.setState(state => {
+    return {
+      books: state.books.map(book => {
+        if (book.id === curBook.id) {
+          book.shelf = value
+        }
+        return book
+      }),
+      searchResults: state.searchResults.map(book => {
+        if (book.id === curBook.id) {
+          book.shelf = value
+        }
+        return book
+      })
+    }
+  }))
+}
   addToMyReads = (value, book) => {
     let newBooks = Object.assign([], this.state.searchResults);
     newBooks.filter((b) => b.id === book.id)[0].shelf = value;
@@ -68,22 +86,22 @@ class BooksApp extends React.Component {
       books: state.books.concat(newBooks)
     }));
     BooksAPI.update(book, value)
-    console.log("PPPPPPPPP")
+    console.log("addToMyReads", book)
   };
 
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={ () => (
-              <Main books={this.state.books} moveBook={this.changeShelf} />
+              <Main books={this.state.books} moveBook={this.updateShelf} />
         )}/>
           <Route path="/search" render={({ history }) => (
             <Search
             books={this.state.books}
             searchResults={this.state.searchResults}
-            moveBook={this.changeShelf}
+            moveBook={this.updateShelf}
             updateSearch={this.updateQuery}
-            addBook={this.addToMyReads}
+            addBook={this.updateShelf}
             clearSearch={this.clearQuery}
             shelf="none"
             />
