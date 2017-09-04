@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import sortBy from 'sort-by'
-import Book from './Book.js'
+import Bookshelf from './Bookshelf.js'
 
 class Main extends Component {
 
@@ -13,26 +13,16 @@ class Main extends Component {
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
-        <div className="list-books-content">
-          <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <Book books={this.props.books} moveBook={this.props.moveBook} shelf="currentlyReading"/>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">
-              <Book books={this.props.books} moveBook={this.props.moveBook} shelf="wantToRead"/>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-              </div>
-            </div>
-          </div>
+          <div className="list-books-content">
+        <div>
+          <Bookshelf books={this.props.books} moveBook={this.props.moveBook} shelf="currentlyReading" shelfName="Currently Reading"/>
+        </div>
+        <div>
+          <Bookshelf books={this.props.books} moveBook={this.props.moveBook} shelf="wantToRead" shelfName="Want To Read"/>
+        </div>
+        <div>
+          <Bookshelf books={this.props.books} moveBook={this.props.moveBook} shelf="read" shelfName="Read"/>
+        </div>
         </div>
         <div className="open-search">
           <Link

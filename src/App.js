@@ -52,42 +52,25 @@ class BooksApp extends React.Component {
   this.setState({ query: '' })
   };
 
-  changeShelf = (value, book) => {
-    let newBooks = Object.assign([], this.state.books);
-    newBooks.filter((b) => b.id === book.id)[0].shelf = value;
-    this.setState((state) => ({
-      books: newBooks
-    }));
-    BooksAPI.update(book, value)
-    console.log("changeShelf", book);
-  };
-  updateShelf = (value, curBook) => {
-  BooksAPI.update(curBook, value).then(() => this.setState(state => {
+  updateShelf = (value, currentBook) => {
+  BooksAPI.update(currentBook, value).then(() => this.setState(state => {
     return {
       books: state.books.map(book => {
-        if (book.id === curBook.id) {
+        if (book.id === currentBook.id) {
           book.shelf = value
         }
         return book
       }),
       searchResults: state.searchResults.map(book => {
-        if (book.id === curBook.id) {
+        if (book.id === currentBook.id) {
           book.shelf = value
         }
         return book
       })
     }
-  }))
-}
-  addToMyReads = (value, book) => {
-    let newBooks = Object.assign([], this.state.searchResults);
-    newBooks.filter((b) => b.id === book.id)[0].shelf = value;
-    this.setState((state) => ({
-      books: state.books.concat(newBooks)
-    }));
-    BooksAPI.update(book, value)
-    console.log("addToMyReads", book)
-  };
+  }));
+};
+
 
   render() {
     return (
