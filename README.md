@@ -2,26 +2,32 @@ MyReads is a web app that allows you to view bookshelves containing books that y
 
 
 ## Requirements
-Node and NPM are required to use MyReads
+Node and NPM are required to use MyReads.
 They can be downloaded [here](https:/nodejs.org/en/download/)
 
 
 ## Installation
 
 ###### Clone this repository:
-* $ git clone https://github.com/treyCooper/reactnd-project-myreads.git
-* $ cd reactnd-project-myreads
-* $ npm install
-
+```
+ $ git clone https://github.com/treyCooper/reactnd-project-myreads.git
+ $ cd reactnd-project-myreads
+ $ npm install
+```
 ## Launch
 
 ###### Start the server:
-* $ npm start
+```
+$ npm start
+```
 
 MyReads will then open at http://localhost:3000
 
 ## Important
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
+
+## Warning
+This project is known to have dependency issues when running on a Windows OS.
 
 ## create-react-app
 
